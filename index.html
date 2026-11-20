@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lojain Al Mowald — Photographer, Yanbu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&family=El+Messiri:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* Reference: TERAKAWA Photo Office (Awwwards nominee) — cream paper, serif italic, spaced caps, hairlines, numbered plans.
+   EDIT her name, contacts, photos and the Google Sheet link in CONFIG at the bottom. */
+:root{
+  --paper:#f8f6f1;--card:#fdfcf9;--ink:#1f1d1a;--soft:#6f6a61;--line:#e4dfd5;--olive:#7a6a44;
+  --serif:'EB Garamond',Georgia,serif;--sans:'Jost',system-ui,sans-serif;--e:cubic-bezier(.7,0,.2,1)}
+html[lang="ar"] .caps,html[lang="ar"] .fig figcaption,html[lang="ar"] .intro p,html[lang="ar"] .p-head p,html[lang="ar"] .note{font-weight:300}
+html[lang="ar"] .intro h1{line-height:1.25;font-size:clamp(3rem,8vw,7rem)}
+html[lang="ar"] .p-head h2{line-height:1.4}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300;overflow:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.caps{font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;font-style:italic;font-family:var(--serif)}
+html[lang="ar"] .caps{letter-spacing:0;font-size:.95rem;font-style:normal}
+
+/* ---------- Loader ---------- */
+.loader{position:fixed;inset:0;z-index:100;background:var(--paper);display:grid;place-items:center;transition:clip-path 1.1s var(--e);clip-path:inset(0 0 0 0)}
+.loader.out{clip-path:inset(0 0 100% 0)}
+.loader div{text-align:center}
+.loader b{display:block;font-family:var(--serif);font-weight:400;font-size:2.4rem}
+.loader i{display:block;width:160px;height:1px;background:var(--line);margin:16px auto 0;position:relative;overflow:hidden}
+.loader i::after{content:"";position:absolute;inset:0;background:var(--olive);transform:scaleX(var(--p,0));transform-origin:left}
+
+/* ---------- Page frame ---------- */
+.page{height:100svh;display:grid;grid-template-rows:auto auto 1fr auto}
+header{display:flex;justify-content:space-between;align-items:center;padding:22px 4vw;border-bottom:1px solid var(--line)}
+.logo b{display:block;font-weight:500;font-size:1.15rem;letter-spacing:.02em}
+.logo span{font-family:var(--serif);font-style:italic;font-size:.82rem;color:var(--soft);letter-spacing:.12em}
+html[lang="ar"] .logo span{letter-spacing:0}
+.lang{border:1px solid var(--line);padding:7px 14px;font-size:.8rem;letter-spacing:.1em;transition:border-color .3s}
+.lang:hover{border-color:var(--olive)}
+
+/* ---------- Name ---------- */
+.intro{padding:5vh 4vw 3vh;display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.intro .caps{color:var(--olive);display:flex;align-items:center;gap:14px}
+.intro .caps::before{content:"";width:34px;height:1px;background:var(--olive)}
+.intro h1{font-family:var(--serif);font-weight:400;font-size:clamp(3.4rem,9.5vw,8.6rem);line-height:.92;letter-spacing:-.01em;margin-top:12px}
+.intro h1 em{color:var(--olive)}
+.intro h1 .w{display:inline-block;overflow:hidden;vertical-align:bottom;padding:0 .14em .28em;margin:0 -.14em -.28em}
+.intro h1 .w>span{display:inline-block;transform:translateY(110%)}
+.ready .intro h1 .w>span{transition:transform 1.2s var(--e);transform:none}
+.intro p{font-family:var(--serif);font-size:1.15rem;color:var(--soft);max-width:300px;line-height:1.5}
+
+/* ---------- Running photo banners ---------- */
+.reel{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:14px;direction:ltr;padding-bottom:4px}
+.track{flex:1;min-height:0;display:flex;gap:14px;width:max-content;animation:run 80s linear infinite}
+.track.b{animation-direction:reverse;animation-duration:95s}
+.reel:hover .track{animation-play-state:paused}
+.fig{height:100%;display:flex;flex-direction:column;gap:6px}
+.fig img{flex:1;min-height:0;height:100%;aspect-ratio:4/5;object-fit:cover;display:block;filter:grayscale(.15);transition:filter .5s}
+.fig:hover img{filter:none}
+.fig figcaption{font-family:var(--serif);font-size:.74rem;color:var(--soft);white-space:nowrap;display:flex;gap:7px;align-items:baseline}
+.fig figcaption b{font-weight:400;letter-spacing:.12em;text-transform:uppercase;font-size:.66rem;color:var(--ink)}
+@keyframes run{to{transform:translateX(-50%)}}
+
+/* ---------- Bottom bar: CTA + contacts ---------- */
+.bar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 4vw 20px;border-top:1px solid var(--line)}
+.cta{display:flex;align-items:center;gap:18px}
+.cta-btn{width:64px;height:64px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;position:relative;transition:transform .5s var(--e)}
+.cta-btn:hover{transform:scale(1.07)}
+.cta-btn::after{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid var(--ink);animation:ring 2.4s infinite}
+@keyframes ring{to{transform:scale(1.5);opacity:0}}
+.cta-btn svg{width:24px;height:24px}
+.cta-txt{text-align:end}
+.cta-txt b{justify-content:flex-end}
+.cta-txt b{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:400;font-size:1.35rem}
+.cta-txt b i{display:inline-block;width:34px;height:1px;background:var(--ink);position:relative;animation:nudge 1.6s ease-in-out infinite}
+.cta-txt b i::after{content:"";position:absolute;right:-1px;top:-4px;width:8px;height:8px;border-top:1px solid;border-right:1px solid;transform:rotate(45deg)}
+html[dir="rtl"] .cta-txt b i{transform:scaleX(-1);animation-name:nudgeR}
+@keyframes nudge{50%{transform:translateX(6px)}}
+@keyframes nudgeR{0%,100%{transform:scaleX(-1)}50%{transform:scaleX(-1) translateX(6px)}}
+.cta-txt span{font-size:.8rem;color:var(--soft)}
+.contacts{display:flex;gap:10px}
+.contacts a{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;background:var(--card);transform:scale(0);transition:background .3s,border-color .3s,color .3s}
+.ready .contacts a{animation:pop .7s cubic-bezier(.3,1.7,.5,1) forwards}
+.contacts a:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.contacts svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+@keyframes pop{0%{transform:scale(0) translateY(20px)}100%{transform:scale(1)}}
+
+/* ---------- Prices panel ---------- */
+.prices{position:fixed;inset:0;z-index:50;background:var(--paper);overflow:auto;clip-path:inset(100% 0 0 0);transition:clip-path 1s var(--e),visibility 0s 1s;visibility:hidden}
+.prices.on{clip-path:inset(0 0 0 0);visibility:visible;transition:clip-path 1s var(--e),visibility 0s}
+.p-top{position:sticky;top:0;z-index:3;display:flex;justify-content:space-between;align-items:center;padding:22px 4vw;background:rgba(248,246,241,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.close{display:flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
+.close span{width:30px;height:30px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;transition:transform .4s var(--e)}
+.close:hover span{transform:rotate(90deg)}
+html[lang="ar"] .close{letter-spacing:0}
+.p-wrap{max-width:1180px;margin:0 auto;padding:6vh 4vw 14vh}
+.p-head .caps{color:var(--olive);display:flex;align-items:center;gap:14px}
+.p-head .caps::before{content:"";width:34px;height:1px;background:var(--olive)}
+.p-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.4rem,5.5vw,4.4rem);line-height:1.04;margin:18px 0 18px}
+.p-head h2 em{color:var(--olive)}
+.p-head p{font-family:var(--serif);font-size:1.12rem;color:var(--soft);max-width:560px;line-height:1.6;padding-bottom:34px;border-bottom:1px solid var(--line)}
+.p-head .rv,.group{opacity:0;transform:translateY(24px)}
+.prices.on .p-head .rv,.prices.on .group{animation:up .9s var(--e) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+
+.group{margin-top:64px}
+.g-title{display:flex;align-items:baseline;gap:16px;margin-bottom:22px}
+.g-title .caps{color:var(--olive)}
+.g-title h3{font-family:var(--serif);font-weight:400;font-size:2rem}
+.plans{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));padding:1px 0 0;padding-inline-start:1px}
+.plan{position:relative;display:flex;flex-direction:column;padding:30px 28px 28px;border:1px solid var(--line);margin-top:-1px;margin-inline-start:-1px;background:var(--card);transition:background .4s}
+.plan:hover{background:#f3f0e8}
+.plan.rec{background:#f1eee5}
+.plan-k{display:flex;justify-content:space-between;color:var(--soft)}
+.plan-k .tag{color:var(--olive)}
+.plan h4{font-family:var(--serif);font-weight:400;font-size:1.7rem;margin:16px 0 14px;line-height:1.15}
+.plan ul{list-style:none;margin-bottom:26px}
+.plan li{font-size:.9rem;color:#4b4740;padding:9px 0;border-top:1px solid var(--line);display:flex;gap:10px}
+.plan li::before{content:"—";color:var(--soft)}
+.plan-foot{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.price{font-family:var(--serif);font-size:2.3rem;line-height:1}
+.price small{font-size:.85rem;color:var(--soft);margin-inline-start:4px}
+.book{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--ink);padding-bottom:3px;white-space:nowrap;transition:color .3s,border-color .3s}
+.book:hover{color:var(--olive);border-color:var(--olive)}
+html[lang="ar"] .book{letter-spacing:0;font-size:.9rem}
+.note{margin-top:60px;border:1px solid var(--line);background:var(--card);padding:22px 26px;font-family:var(--serif);color:var(--soft);line-height:1.6}
+.note .caps{color:var(--olive);display:block;margin-bottom:6px}
+.p-contacts{display:flex;gap:10px;margin-top:30px}
+
+@media (max-width:760px){
+  header{padding:16px 5vw}
+  .intro{padding:4vh 5vw 2.5vh}.intro p{display:none}
+  .reel{gap:10px}
+  .bar{flex-direction:column;align-items:flex-start;padding:14px 5vw 18px;gap:14px}
+  .cta-btn{width:56px;height:56px}
+  .contacts{gap:8px}.contacts a{width:40px;height:40px}
+  .plan{padding:26px 22px}
+}
+html[lang="ar"]{--serif:'Noto Naskh Arabic',serif;--sans:'IBM Plex Sans Arabic',sans-serif}
+html[lang="ar"] .intro h1,html[lang="ar"] .p-head h2,html[lang="ar"] .g-title h3,html[lang="ar"] .plan h4,html[lang="ar"] .price,html[lang="ar"] .logo b,html[lang="ar"] .loader b,html[lang="ar"] .cta-txt b{font-family:'El Messiri',serif;font-weight:500}
+html[lang="ar"] em{font-style:normal}
+html[lang="ar"] .intro h1{line-height:1.3;font-size:clamp(3rem,8vw,7rem)}
+html[lang="ar"] .p-head h2{line-height:1.35}
+html[lang="ar"] .logo span{font-style:normal}
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader"><div><span class="caps" id="lcap">Photographer · Yanbu</span><b id="lname">Lojain Al Mowald</b><i id="lbar"></i></div></div>
+
+<div class="page">
+  <header>
+    <div class="logo"><b id="logoName">Lojain Al Mowald</b><span data-i18n="logoSub">Photography</span></div>
+    <button class="lang" id="langBtn">العربية</button>
+  </header>
+
+  <section class="intro">
+    <div>
+      <div class="caps" data-i18n="eyebrow">Photographer · Yanbu</div>
+      <h1 id="name"></h1>
+    </div>
+    <p data-i18n="sub">Portraits, families and occasions, photographed with care.</p>
+  </section>
+
+  <section class="reel" id="reel"></section>
+
+  <footer class="bar">
+    <div class="cta">
+      <button class="cta-txt" id="openTxt"><b><span data-i18n="click">Click here</span><i></i></b><span data-i18n="clickSub">to see prices and packages</span></button>
+      <button class="cta-btn" id="openBtn" aria-label="Open prices">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+      </button>
+    </div>
+    <nav class="contacts" id="contacts"></nav>
+  </footer>
+</div>
+
+<section class="prices" id="prices" aria-hidden="true">
+  <div class="p-top">
+    <div class="logo"><b id="logoName2">Lojain Al Mowald</b><span data-i18n="logoSub">Photography</span></div>
+    <div style="display:flex;gap:18px;align-items:center"><button class="lang" id="langBtn2">العربية</button><button class="close" id="closeBtn"><span>✕</span><em data-i18n="close" style="font-style:normal">Close</em></button></div>
+  </div>
+  <div class="p-wrap">
+    <div class="p-head">
+      <div class="caps rv" data-i18n="pk">Prices &amp; packages</div>
+      <h2 class="rv" style="animation-delay:.1s" data-i18n-html="ph">Clear prices,<br><em>made for your moment.</em></h2>
+      <p class="rv" style="animation-delay:.2s" id="introTxt">Every session includes professional editing and an online gallery to download your photos. Message me on WhatsApp to check a date.</p>
+    </div>
+    <div id="groups"></div>
+    <div class="note"><span class="caps" data-i18n="nk">Good to know</span><span id="noteTxt">Prices may change during the year.</span>
+      <div class="p-contacts contacts" id="contacts2"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ======================= CONFIG — edit these ======================= */
+const CONFIG = {
+  name_en:"Lojain Al Mowald", name_ar:"لُجين المولد",
+  // Google Sheet → File → Share → Publish to web → choose the sheet → CSV → paste the link here
+  SHEET_CSV_URL:"",
+  currency_en:"SAR", currency_ar:"ر.س",
+  // Text on the prices page — PLACEHOLDERS, she must confirm these
+  intro_en:"Every session includes professional editing. Message me on WhatsApp to check a date.",
+  intro_ar:"كل جلسة تشمل تعديلاً احترافياً للصور. راسلني عبر واتساب لحجز موعدك.",
+  goodToKnow_en:"Prices may change during the year. Message me on WhatsApp to confirm availability.",
+  goodToKnow_ar:"الأسعار قابلة للتغيير خلال السنة. راسلني عبر واتساب للتأكد من توفر الموعد.",
+  contacts:{
+    whatsapp:"https://wa.me/966559676967",
+    instagram:"https://www.instagram.com/lojainalmowald/",
+    snapchat:"https://www.snapchat.com/add/lojain.almowald",
+    email:"mailto:lojainalmowald@gmail.com",
+    phone:"tel:+966559676967"
+  },
+  // Her photos (replace with "photos/1.jpg" etc.) and a one-word caption each
+  photos:[["Portrait","بورتريه"],["Family","عائلة"],["Graduation","تخرّج"],["Maternity","حمل"],["Newborn","مواليد"],["Malka","ملكة"],["Portrait","بورتريه"],["Family","عائلة"],["Wedding","زفاف"],["Graduation","تخرّج"],["Portrait","بورتريه"],["Occasion","مناسبة"]]
+    .map((c,i)=>({src:`https://picsum.photos/seed/noura${i+5}/640/800`,en:c[0],ar:c[1]}))
+};
+
+/* Sample prices — the Google Sheet uses the same columns.
+   "includes" items are separated by ;   "tag" is optional (e.g. Most booked) */
+const SAMPLE=[
+ {category_en:"Portraits",category_ar:"جلسات فردية",item_en:"Mini session",item_ar:"جلسة قصيرة",price:"450",includes_en:"30 minutes;10 edited photos;1 outfit",includes_ar:"٣٠ دقيقة;١٠ صور معدّلة;إطلالة واحدة",tag_en:"",tag_ar:""},
+ {category_en:"Portraits",category_ar:"جلسات فردية",item_en:"Classic session",item_ar:"جلسة كلاسيكية",price:"850",includes_en:"1 hour;25 edited photos;2 outfits",includes_ar:"ساعة;٢٥ صورة معدّلة;إطلالتان",tag_en:"Most booked",tag_ar:"الأكثر حجزاً"},
+ {category_en:"Family",category_ar:"العائلة",item_en:"Family session",item_ar:"جلسة عائلية",price:"1200",includes_en:"1 hour;Up to 6 people;30 edited photos",includes_ar:"ساعة;حتى ٦ أشخاص;٣٠ صورة معدّلة",tag_en:"",tag_ar:""},
+ {category_en:"Family",category_ar:"العائلة",item_en:"Maternity",item_ar:"جلسة حمل",price:"1100",includes_en:"1 hour;20 edited photos;Studio or outdoor",includes_ar:"ساعة;٢٠ صورة معدّلة;استوديو أو خارجي",tag_en:"",tag_ar:""},
+ {category_en:"Family",category_ar:"العائلة",item_en:"Newborn",item_ar:"مواليد",price:"1300",includes_en:"2 hours;20 edited photos;At home or studio",includes_ar:"ساعتان;٢٠ صورة معدّلة;في المنزل أو الاستوديو",tag_en:"",tag_ar:""},
+ {category_en:"Occasions",category_ar:"المناسبات",item_en:"Graduation",item_ar:"تخرّج",price:"1500",includes_en:"2 hours;40 edited photos",includes_ar:"ساعتان;٤٠ صورة معدّلة",tag_en:"",tag_ar:""},
+ {category_en:"Occasions",category_ar:"المناسبات",item_en:"Engagement / Malka",item_ar:"خطوبة / ملكة",price:"2500",includes_en:"3 hours;80 edited photos",includes_ar:"٣ ساعات;٨٠ صورة معدّلة",tag_en:"",tag_ar:""},
+ {category_en:"Occasions",category_ar:"المناسبات",item_en:"Wedding",item_ar:"زفاف",price:"4500",includes_en:"Women's hall, full night;200 edited photos;Highlights album",includes_ar:"قاعة النساء، الحفل كاملاً;٢٠٠ صورة معدّلة;ألبوم مختارات",tag_en:"",tag_ar:""},
+ {category_en:"Extras",category_ar:"إضافات",item_en:"Extra edited photo",item_ar:"صورة معدّلة إضافية",price:"50",includes_en:"Per photo",includes_ar:"لكل صورة",tag_en:"",tag_ar:""},
+ {category_en:"Extras",category_ar:"إضافات",item_en:"Printed album",item_ar:"ألبوم مطبوع",price:"600",includes_en:"30 × 30 cm;Linen cover",includes_ar:"٣٠ × ٣٠ سم;غلاف كتان",tag_en:"",tag_ar:""}
+];
+
+const T={
+ en:{logoSub:"Photography",eyebrow:"Photographer · Yanbu",sub:"Portraits, families and occasions, photographed with care.",click:"Click here",clickSub:"to see prices and packages",close:"Close",
+     pk:"Prices & packages",ph:"Clear prices,<br><em>made for your moment.</em>",
+     nk:"Good to know",
+     plan:"No.",book:"Book",fig:"Fig.",btn:"العربية",msg:"Hi! I'd like to book: ",sub1:"Photography"},
+ ar:{logoSub:"للتصوير",eyebrow:"مصوّرة · ينبع",sub:"بورتريه، عائلات ومناسبات، بعناية في كل لقطة.",click:"اضغط هنا",clickSub:"لعرض الأسعار والباقات",close:"إغلاق",
+     pk:"الأسعار والباقات",ph:"أسعار واضحة،<br><em>تناسب لحظتك.</em>",
+     nk:"معلومات مهمة",
+     plan:"رقم",book:"احجز",fig:"صورة",btn:"English",msg:"مرحباً! أرغب في حجز: ",sub1:"للتصوير"}
+};
+const ICONS={
+ whatsapp:'<path d="M3 21l1.6-4.6A8.5 8.5 0 1 1 8 19.6L3 21z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1.2-1.2 1.8.9-.4 1.6c-3.6.3-7.7-3.8-7.4-7.4l1.6-.4.9 1.8L9 9.5z"/>',
+ instagram:'<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8"/>',
+ snapchat:'<path d="M12 3c3 0 5 2.2 5 5v2.5l2 .5-1.5 1.5c.5 1.5 1.8 2.6 3.5 3-1 .8-2.2.8-3 1l-.5 1.5c-1.2-.3-2.3.2-3.5 1-1.2.8-2.8.8-4 0-1.2-.8-2.3-1.3-3.5-1L6 16.5c-.8-.2-2-.2-3-1 1.7-.4 3-1.5 3.5-3L5 11l2-.5V8c0-2.8 2-5 5-5z"/>',
+ tiktok:'<path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 2.5 2.5 4.5 5 4.5"/>',
+ email:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+ phone:'<path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/>'
+};
+
+const qLang=new URLSearchParams(location.search).get('lang');
+let lang=(qLang==='ar'||qLang==='en')?qLang:((navigator.language||'').toLowerCase().startsWith('ar')?'ar':'en'), rows=SAMPLE;
+const $=id=>document.getElementById(id);
+const pad=n=>{const s=String(n).padStart(2,'0');return lang==='ar'?s.replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]):s};
+
+/* Google Sheet loader */
+function parseCSV(t){const o=[];let r=[],f='',q=false;for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c=='"'){if(t[i+1]=='"'){f+='"';i++}else q=false}else f+=c}else if(c=='"')q=true;else if(c==','){r.push(f);f=''}else if(c=='\n'){r.push(f);o.push(r);r=[];f=''}else if(c!='\r')f+=c}if(f||r.length){r.push(f);o.push(r)}const h=o.shift().map(s=>s.trim());return o.filter(r=>r.some(x=>x.trim())).map(r=>Object.fromEntries(h.map((k,i)=>[k,(r[i]||'').trim()])))}
+async function loadSheet(){if(!CONFIG.SHEET_CSV_URL)return;try{const r=await fetch(CONFIG.SHEET_CSV_URL+(CONFIG.SHEET_CSV_URL.includes('?')?'&':'?')+'t='+Date.now());const d=parseCSV(await r.text());if(d.length)rows=d}catch(e){console.warn('Using sample prices',e)}}
+
+function money(p){const n=Number(String(p).replace(/[^\d.]/g,''));if(!n)return[p,''];return lang==='ar'?[n.toLocaleString('ar-SA'),CONFIG.currency_ar]:[n.toLocaleString('en-US'),CONFIG.currency_en]}
+
+/* Running photo banners */
+function buildReel(){
+  const P=CONFIG.photos,half=Math.ceil(P.length/2);
+  const row=(list,start)=>{let L=list.map((p,i)=>[p,start+i]);while(L.length<12)L=L.concat(L);const h=L.map(([p,idx])=>`<figure class="fig"><img src="${p.src}" alt="${p[lang]}" loading="lazy"><figcaption><b>${T[lang].fig} ${pad(idx+1)}</b>${p[lang]}</figcaption></figure>`).join('');return h+h};
+  $('reel').innerHTML=`<div class="track">${row(P.slice(0,half),0)}</div><div class="track b">${row(P.slice(half),half)}</div>`;
+}
+
+/* Contacts */
+function buildContacts(){
+  const h=Object.entries(CONFIG.contacts).map(([k,v],i)=>`<a href="${v}" target="_blank" rel="noopener" aria-label="${k}" style="animation-delay:${1.5+i*.1}s"><svg viewBox="0 0 24 24">${ICONS[k]||''}</svg></a>`).join('');
+  $('contacts').innerHTML=h;$('contacts2').innerHTML=h;
+}
+
+/* Prices */
+function buildPrices(){
+  const t=T[lang],g={},order=[];
+  rows.forEach(r=>{const k=r.category_en;if(!g[k]){g[k]=[];order.push(k)}g[k].push(r)});
+  const num=(CONFIG.contacts.whatsapp.match(/\d+/)||[''])[0];
+  let n=0;
+  $('groups').innerHTML=order.map((k,gi)=>`<div class="group" style="animation-delay:${.3+gi*.12}s">
+    <div class="g-title"><span class="caps">${pad(gi+1)}</span><h3>${g[k][0]['category_'+lang]||k}</h3></div>
+    <div class="plans">${g[k].map(it=>{n++;const [v,c]=money(it.price),name=it['item_'+lang]||it.item_en,tag=it['tag_'+lang]||'';
+      const inc=(it['includes_'+lang]||it['note_'+lang]||'').split(';').map(s=>s.trim()).filter(Boolean);
+      const wa=`https://wa.me/${num}?text=${encodeURIComponent(t.msg+name)}`;
+      return `<article class="plan ${tag?'rec':''}">
+        <div class="plan-k"><span class="caps">${t.plan} ${pad(n)}</span>${tag?`<span class="caps tag">${tag}</span>`:''}</div>
+        <h4>${name}</h4>
+        ${inc.length?`<ul>${inc.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}
+        <div class="plan-foot"><div class="price">${v}<small>${c}</small></div><a class="book" href="${wa}" target="_blank" rel="noopener">${t.book} ${lang==='ar'?'←':'→'}</a></div>
+      </article>`}).join('')}</div></div>`).join('');
+}
+
+/* Language */
+function setLang(l){
+  lang=l;const h=document.documentElement;h.lang=l;h.dir=l==='ar'?'rtl':'ltr';const t=T[l];
+  document.querySelectorAll('[data-i18n]').forEach(e=>e.textContent=t[e.dataset.i18n]);
+  document.querySelectorAll('[data-i18n-html]').forEach(e=>e.innerHTML=t[e.dataset.i18nHtml]);
+  $('langBtn').textContent=t.btn;$('langBtn2').textContent=t.btn;
+  $('introTxt').textContent=CONFIG['intro_'+l];$('noteTxt').textContent=CONFIG['goodToKnow_'+l];
+  const nm=l==='ar'?CONFIG.name_ar:CONFIG.name_en;
+  $('logoName').textContent=nm;$('logoName2').textContent=nm;
+  const [first,...rest]=nm.split(' ');$('name').innerHTML=`<span class="w"><span>${first}</span></span> <span class="w"><span style="transition-delay:.12s"><em>${rest.join(' ')}</em></span></span>`;
+  buildReel();buildPrices();
+}
+
+/* Open / close prices */
+const pr=$('prices');
+function showPrices(on){if(on){buildPrices();pr.scrollTop=0}pr.classList.toggle('on',on);pr.setAttribute('aria-hidden',on?'false':'true')}
+function syncHash(){showPrices(location.hash==='#prices')}
+let pushed=false;
+const openPrices=()=>{showPrices(true);try{if(location.hash!=='#prices'){history.pushState(null,'','#prices');pushed=true}}catch(e){}};
+const closePrices=()=>{showPrices(false);if(pushed){pushed=false;try{history.back()}catch(e){}}else{try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}};
+addEventListener('hashchange',syncHash);addEventListener('popstate',()=>{pushed=false;syncHash()});
+$('openBtn').onclick=openPrices;$('openTxt').onclick=openPrices;$('closeBtn').onclick=closePrices;
+addEventListener('keydown',e=>{if(e.key==='Escape'&&pr.classList.contains('on'))closePrices()});
+const flip=()=>setLang(lang==='en'?'ar':'en');$('langBtn').onclick=flip;$('langBtn2').onclick=flip;
+
+/* Loader */
+document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';
+$('lname').textContent=lang==='ar'?CONFIG.name_ar:CONFIG.name_en;$('lcap').textContent=T[lang].eyebrow;
+buildContacts();
+let p=0;const bar=$('lbar');
+const tick=setInterval(()=>{p=Math.min(1,p+.06+Math.random()*.06);bar.style.setProperty('--p',p);
+  if(p>=1){clearInterval(tick);setTimeout(()=>{$('loader').classList.add('out');document.body.classList.add('ready')},250)}},70);
+loadSheet().then(()=>{setLang(lang);syncHash()});
+</script>
+</body>
+</html>
