@@ -39,7 +39,7 @@ html[lang="ar"] .caps{letter-spacing:0;font-size:.95rem;font-style:normal}
 html[lang="ar"] .lskip{letter-spacing:0;font-size:.9rem}
 
 /* ---------- Page frame ---------- */
-.page{height:100svh;display:grid;grid-template-rows:auto auto 1fr;padding-bottom:max(84px,calc(70px + env(safe-area-inset-bottom)))}
+.page{position:relative;height:100svh;display:grid;grid-template-rows:auto auto 1fr;padding-bottom:max(84px,calc(70px + env(safe-area-inset-bottom)))}
 header{display:flex;justify-content:space-between;align-items:center;padding:22px 4vw;border-bottom:1px solid var(--line)}
 .logo b{display:block;font-weight:500;font-size:1.15rem;letter-spacing:.02em}
 .logo span{font-family:var(--serif);font-style:italic;font-size:.82rem;color:var(--soft);letter-spacing:.12em}
@@ -163,7 +163,7 @@ html[lang="ar"] .lb-close{letter-spacing:0}
 .plan.in .plan-ph img{transform:none}
 
 /* ---------- Scroll cue ---------- */
-.cue{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--soft)}
+.cue{position:absolute;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--soft)}
 .cue i{display:block;width:1px;height:30px;background:var(--line);position:relative;overflow:hidden}
 .cue i::after{content:"";position:absolute;left:0;top:-100%;width:1px;height:100%;background:var(--olive);animation:drip 2.2s var(--e) infinite}
 @keyframes drip{60%,100%{top:100%}}
@@ -219,7 +219,6 @@ html[lang="ar"] .lb-close{letter-spacing:0}
   .cta-btn{width:56px;height:56px}
   .contacts{gap:8px}.contacts a{width:40px;height:40px}
   .plan{padding:26px 22px}.plan-ph{margin:-26px -22px 20px;height:170px}
-  .cue{position:absolute;top:16px;inset-inline-end:5vw}
   .sec{padding:12vh 5vw 0}.f-wrap{padding:11vh 5vw 0}
   .a-grid{grid-template-columns:1fr;gap:34px}.a-ph{max-height:72vh}
   .facts{grid-template-columns:1fr;gap:0}.facts div{display:flex;justify-content:space-between;gap:16px;padding:12px 0}.facts dd{margin:0;text-align:end}
@@ -257,6 +256,7 @@ html[lang="ar"] .logo span{font-style:normal}
   </section>
 
   <section class="reel" id="reel"></section>
+  <button class="cue" id="cue" aria-label="Scroll down"><span class="caps" data-i18n="scroll">Scroll</span><i></i></button>
 
 </div>
 
@@ -555,6 +555,7 @@ function watchRise(){const els=document.querySelectorAll('.more .rise:not(.in),.
   if(!rio)rio=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');rio.unobserve(en.target)}}),{threshold:.15,rootMargin:'0px 0px -6% 0px'});
   els.forEach(e=>rio.observe(e))}
 const sm=RM?'auto':'smooth';
+$('cue').onclick=()=>$('about').scrollIntoView({behavior:sm});
 $('toTop').onclick=()=>scrollTo({top:0,behavior:sm});
 
 /* ---------- Opening sequence ---------- */
