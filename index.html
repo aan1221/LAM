@@ -39,7 +39,7 @@ html[lang="ar"] .caps{letter-spacing:0;font-size:.95rem;font-style:normal}
 html[lang="ar"] .lskip{letter-spacing:0;font-size:.9rem}
 
 /* ---------- Page frame ---------- */
-.page{height:100svh;display:grid;grid-template-rows:auto auto 1fr auto}
+.page{height:100svh;display:grid;grid-template-rows:auto auto 1fr;padding-bottom:max(84px,calc(70px + env(safe-area-inset-bottom)))}
 header{display:flex;justify-content:space-between;align-items:center;padding:22px 4vw;border-bottom:1px solid var(--line)}
 .logo b{display:block;font-weight:500;font-size:1.15rem;letter-spacing:.02em}
 .logo span{font-family:var(--serif);font-style:italic;font-size:.82rem;color:var(--soft);letter-spacing:.12em}
@@ -258,16 +258,6 @@ html[lang="ar"] .logo span{font-style:normal}
 
   <section class="reel" id="reel"></section>
 
-  <footer class="bar">
-    <div class="cta">
-      <button class="cta-txt" id="openTxt"><b><span data-i18n="click">Click here</span><i></i></b><span data-i18n="clickSub">to see prices and packages</span></button>
-      <button class="cta-btn" id="openBtn" aria-label="Open prices">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
-      </button>
-    </div>
-    <button class="cue" id="cue" aria-label="Scroll down"><span class="caps" data-i18n="scroll">Scroll</span><i></i></button>
-    <nav class="contacts" id="contacts"></nav>
-  </footer>
 </div>
 
 <main class="more">
@@ -297,7 +287,7 @@ html[lang="ar"] .logo span{font-style:normal}
       <h2 class="rise" data-i18n-html="footH">Let's book<br><em>your session.</em></h2>
       <div class="f-row rise">
         <div class="cta">
-          <button class="cta-txt" id="openTxt2"><b><span data-i18n="seeP">See prices</span><i></i></b><span data-i18n="clickSub">to see prices and packages</span></button>
+          <button class="cta-txt" id="openTxt2"><b><span data-i18n="seeP">See prices</span><i></i></b><span data-i18n="clickSub">All sessions &amp; packages</span></button>
           <button class="cta-btn" id="openBtn2" aria-label="Open prices"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
         </div>
         <nav class="contacts" id="contacts3"></nav>
@@ -395,12 +385,12 @@ const SAMPLE=[
 ];
 
 const T={
- en:{logoSub:"Photography",eyebrow:"Photographer · Yanbu",sub:"Portraits, families and occasions, photographed with care.",click:"Click here",clickSub:"to see prices and packages",close:"Close",
+ en:{logoSub:"Photography",eyebrow:"Photographer · Yanbu",sub:"Portraits, families and occasions, photographed with care.",click:"See prices",clickSub:"All sessions & packages",close:"Close",
      pk:"Prices & packages",ph:"Clear prices,<br><em>made for your moment.</em>",
      nk:"Good to know",
      plan:"No.",book:"Book",fig:"Fig.",btn:"العربية",msg:"Hi! I'd like to book: ",sub1:"Photography",
      scroll:"Scroll",aboutK:"About",stepsK:"How booking works",stepsH:"Three simple <em>steps.</em>",footK:"Get in touch",footH:"Let's book<br><em>your session.</em>",seeP:"See prices",top:"Back to top ↑",pill:"Prices",sample:"Sample text — replace with her own words",city:"Yanbu"},
- ar:{logoSub:"للتصوير",eyebrow:"مصوّرة · ينبع",sub:"بورتريه، عائلات ومناسبات، بعناية في كل لقطة.",click:"اضغط هنا",clickSub:"لعرض الأسعار والباقات",close:"إغلاق",
+ ar:{logoSub:"للتصوير",eyebrow:"مصوّرة · ينبع",sub:"بورتريه، عائلات ومناسبات، بعناية في كل لقطة.",click:"الأسعار",clickSub:"جميع الجلسات والباقات",close:"إغلاق",
      pk:"الأسعار والباقات",ph:"أسعار واضحة،<br><em>تناسب لحظتك.</em>",
      nk:"معلومات مهمة",
      plan:"رقم",book:"احجز",fig:"صورة",btn:"English",msg:"مرحباً! أرغب في حجز: ",sub1:"للتصوير",
@@ -436,7 +426,7 @@ function buildReel(){
 /* Contacts */
 function buildContacts(){
   const h=Object.entries(CONFIG.contacts).map(([k,v],i)=>`<a href="${v}" target="_blank" rel="noopener" aria-label="${k}" style="animation-delay:${.5+i*.08}s"><svg viewBox="0 0 24 24">${ICONS[k]||''}</svg></a>`).join('');
-  $('contacts').innerHTML=h;$('contacts2').innerHTML=h;$('contacts3').innerHTML=h;
+  $('contacts2').innerHTML=h;$('contacts3').innerHTML=h;
 }
 
 /* Prices */
@@ -494,7 +484,7 @@ let pushed=false;
 const openPrices=()=>{showPrices(true);try{if(location.hash!=='#prices'){history.pushState(null,'','#prices');pushed=true}}catch(e){}};
 const closePrices=()=>{showPrices(false);if(pushed){pushed=false;try{history.back()}catch(e){}}else{try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}};
 addEventListener('hashchange',syncHash);addEventListener('popstate',()=>{pushed=false;syncHash()});
-$('openBtn').onclick=openPrices;$('openTxt').onclick=openPrices;$('openBtn2').onclick=openPrices;$('openTxt2').onclick=openPrices;$('pill').onclick=openPrices;$('closeBtn').onclick=closePrices;
+$('openBtn2').onclick=openPrices;$('openTxt2').onclick=openPrices;$('pill').onclick=openPrices;$('closeBtn').onclick=closePrices;
 addEventListener('keydown',e=>{if(e.key==='Escape'&&pr.classList.contains('on'))closePrices()});
 const flip=()=>setLang(lang==='en'?'ar':'en');$('langBtn').onclick=flip;$('langBtn2').onclick=flip;
 
@@ -552,12 +542,11 @@ function watchPlans(){if(io)io.disconnect();
   pr.querySelectorAll('.plan').forEach(p=>io.observe(p))}
 
 /* ---------- Scroll lock, prices pill, scroll reveals ---------- */
-let footVis=false,barVis=true;
+let footVis=false,barVis=false;
 function lockSync(){const H=document.documentElement,lbOn=lb.classList.contains('on');H.classList.toggle('lock',!opened||pr.classList.contains('on')||lbOn);H.classList.toggle('lbon',lbOn);pillSync()}
 function pillSync(){$('pill').classList.toggle('on',opened&&!barVis&&!footVis&&!pr.classList.contains('on')&&!lb.classList.contains('on'))}
 if('IntersectionObserver' in window){
   new IntersectionObserver(es=>{heroVis=es[0].isIntersecting},{rootMargin:'40px'}).observe(document.querySelector('.page'));
-  new IntersectionObserver(es=>{barVis=es[0].isIntersecting;pillSync()}).observe(document.querySelector('.bar'));
   new IntersectionObserver(es=>{footVis=es[0].isIntersecting;pillSync()}).observe(document.querySelector('.f-row'));
 }
 let rio;
@@ -566,7 +555,6 @@ function watchRise(){const els=document.querySelectorAll('.more .rise:not(.in),.
   if(!rio)rio=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');rio.unobserve(en.target)}}),{threshold:.15,rootMargin:'0px 0px -6% 0px'});
   els.forEach(e=>rio.observe(e))}
 const sm=RM?'auto':'smooth';
-$('cue').onclick=()=>$('about').scrollIntoView({behavior:sm});
 $('toTop').onclick=()=>scrollTo({top:0,behavior:sm});
 
 /* ---------- Opening sequence ---------- */
