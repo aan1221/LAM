@@ -44,6 +44,7 @@ header{display:flex;justify-content:space-between;align-items:center;padding:22p
 .logo b{display:block;font-weight:500;font-size:1.15rem;letter-spacing:.02em}
 .logo span{font-family:var(--serif);font-style:italic;font-size:.82rem;color:var(--soft);letter-spacing:.12em}
 html[lang="ar"] .logo span{letter-spacing:0}
+.h-eb{color:var(--olive);display:flex;align-items:center;gap:14px}.h-eb::before{content:"";width:34px;height:1px;background:var(--olive)}
 .lang{border:1px solid var(--line);padding:7px 14px;font-size:.8rem;letter-spacing:.1em;transition:border-color .3s}
 .lang:hover{border-color:var(--olive)}
 
@@ -51,7 +52,7 @@ html[lang="ar"] .logo span{letter-spacing:0}
 .intro{padding:5vh 4vw 3vh;display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap}
 .intro .caps{color:var(--olive);display:flex;align-items:center;gap:14px}
 .intro .caps::before{content:"";width:34px;height:1px;background:var(--olive)}
-.intro h1{font-family:var(--serif);font-weight:400;font-size:clamp(3.4rem,9.5vw,8.6rem);line-height:.92;letter-spacing:-.01em;margin-top:12px}
+.intro h1{font-family:var(--serif);font-weight:400;font-size:clamp(3.4rem,9.5vw,8.6rem);line-height:.92;letter-spacing:-.01em}
 .intro h1 em{color:var(--olive)}
 .intro h1 .w{display:inline-block;overflow:hidden;vertical-align:bottom;padding:0 .14em .28em;margin:0 -.14em -.28em}
 .intro h1 .w>span{display:inline-block;transform:translateY(110%)}
@@ -162,6 +163,28 @@ html[lang="ar"] .lb-close{letter-spacing:0}
 .plan.in .plan-ph{clip-path:inset(0 0 0 0)}
 .plan.in .plan-ph img{transform:none}
 
+/* ---------- Selected work band ---------- */
+.band{padding-top:16vh}
+.band-h{max-width:1180px;margin:0 auto;padding:0 4vw 34px}
+.wk-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:0 14px;align-items:start}
+.wk{cursor:zoom-in}
+.wk:nth-child(even){margin-top:9vh}
+.wk .ph{aspect-ratio:4/5;overflow:hidden;clip-path:inset(0 0 100% 0);transition:clip-path 1.3s var(--e)}
+.wk .ph img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.18);transition:transform 1.9s var(--e),filter .5s;filter:grayscale(.15)}
+.wk:hover .ph img{filter:none}
+.wk.in .ph{clip-path:inset(0 0 0 0)}.wk.in .ph img{transform:none}
+.wk figcaption{font-family:var(--serif);font-size:.74rem;color:var(--soft);margin-top:8px;display:flex;gap:7px;align-items:baseline}
+.wk figcaption b{font-weight:400;letter-spacing:.12em;text-transform:uppercase;font-size:.66rem;color:var(--ink)}
+/* masked line rise for section headings */
+.mw{display:block;overflow:hidden;padding:.08em .14em .24em;margin:-.08em -.14em -.24em}
+.mw>span{display:inline-block;transform:translateY(112%);transition:transform 1.2s var(--e)}
+.mask.in .mw>span{transform:none}
+.f-row .cta{gap:24px}
+.f-row .cta-txt b{font-size:clamp(1.6rem,2.6vw,2.2rem)}
+.f-row .cta-btn{width:88px;height:88px}.f-row .cta-btn svg{width:30px;height:30px}
+.f-prices{display:inline-block;margin-top:10px;font-size:1.05rem;font-family:var(--serif);color:var(--soft);border-bottom:1px solid var(--line);padding-bottom:2px;transition:color .3s,border-color .3s}
+.f-prices:hover{color:var(--ink);border-color:var(--ink)}
+
 /* ---------- Scroll cue ---------- */
 .cue{position:absolute;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--soft)}
 .cue i{display:block;width:1px;height:30px;background:var(--line);position:relative;overflow:hidden}
@@ -200,6 +223,7 @@ html[lang="ar"] .lb-close{letter-spacing:0}
 .foot h2{font-size:clamp(3rem,8vw,6.8rem);line-height:.98;margin-top:22px}
 .f-row{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:48px;padding-bottom:12vh}
 .f-row .cta{flex-direction:row-reverse}.f-row .cta-txt{text-align:start}.f-row .cta-txt b{justify-content:flex-start}
+html[lang="ar"] .f-prices{font-size:.95rem}
 .f-base{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding:22px 0 calc(26px + env(safe-area-inset-bottom));font-family:var(--serif);font-size:.9rem;color:var(--soft)}
 .f-base button{font-family:var(--serif);color:var(--soft);transition:color .3s}.f-base button:hover{color:var(--ink)}
 .pill{position:fixed;z-index:40;bottom:calc(18px + env(safe-area-inset-bottom));inset-inline-end:4vw;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);padding:13px 22px 13px 18px;border-radius:999px;font-family:var(--serif);font-size:1.05rem;box-shadow:0 10px 30px -12px rgba(31,29,26,.5);transform:translateY(160%);opacity:0;pointer-events:none;transition:transform .7s var(--e),opacity .4s}
@@ -207,7 +231,7 @@ html[lang="ar"] .lb-close{letter-spacing:0}
 .pill svg{width:18px;height:18px}
 
 @media (prefers-reduced-motion:reduce){
-  .rise,.a-ph,.a-ph img{transition:none!important;opacity:1;transform:none;clip-path:none}
+  .rise,.a-ph,.a-ph img,.wk .ph,.wk .ph img,.mw>span{transition:none!important;opacity:1;transform:none!important;clip-path:none!important}
   .cue i::after{animation:none;top:0}
   .plan,.plan-ph,.plan-ph img{transition:none!important;opacity:1;transform:none;clip-path:none}
 }
@@ -217,6 +241,7 @@ html[lang="ar"] .lb-close{letter-spacing:0}
   .reel{gap:10px}
   .bar{flex-direction:column;align-items:flex-start;padding:14px 5vw 18px;gap:14px}
   .cta-btn{width:56px;height:56px}
+  .f-row .cta-btn{width:72px;height:72px}
   .contacts{gap:8px}.contacts a{width:40px;height:40px}
   .plan{padding:26px 22px}.plan-ph{margin:-26px -22px 20px;height:170px}
   .sec{padding:12vh 5vw 0}.f-wrap{padding:11vh 5vw 0}
@@ -225,6 +250,7 @@ html[lang="ar"] .lb-close{letter-spacing:0}
   .steps ol{grid-template-columns:1fr}.steps li,.steps li:first-child{border-inline-start:0;border-bottom:1px solid var(--line);padding:26px 0;display:grid;grid-template-columns:64px 1fr;column-gap:10px}
   .steps .n{font-size:2.4rem;grid-row:span 2}.steps h3{margin:2px 0 6px;font-size:1.4rem}
   .f-row{flex-direction:column;align-items:flex-start}
+  .band{padding-top:12vh}.band-h{padding:0 5vw 26px}.wk-grid{grid-template-columns:1fr 1fr;gap:10px;padding:0 10px}
 }
 html[lang="ar"]{--serif:'Noto Naskh Arabic',serif;--sans:'IBM Plex Sans Arabic',sans-serif}
 html[lang="ar"] .intro h1,html[lang="ar"] .p-head h2,html[lang="ar"] .g-title h3,html[lang="ar"] .plan h4,html[lang="ar"] .price,html[lang="ar"] .logo b,html[lang="ar"] .loader b,html[lang="ar"] .cta-txt b,html[lang="ar"] .a-txt h2,html[lang="ar"] .sh,html[lang="ar"] .foot h2,html[lang="ar"] .steps .n,html[lang="ar"] .steps h3,html[lang="ar"] .pill,html[lang="ar"] .facts dd{font-family:'El Messiri',serif;font-weight:500}
@@ -243,13 +269,12 @@ html[lang="ar"] .logo span{font-style:normal}
 
 <div class="page">
   <header>
-    <div class="logo"><b id="logoName">Lojain Al Mowald</b><span data-i18n="logoSub">Photography</span></div>
+    <div class="caps h-eb" data-i18n="eyebrow">Photographer · Yanbu</div>
     <button class="lang" id="langBtn">العربية</button>
   </header>
 
   <section class="intro">
     <div>
-      <div class="caps" data-i18n="eyebrow">Photographer · Yanbu</div>
       <h1 id="name"></h1>
     </div>
     <p data-i18n="sub">Portraits, families and occasions, photographed with care.</p>
@@ -275,6 +300,11 @@ html[lang="ar"] .logo span{font-style:normal}
     </div>
   </section>
 
+  <section class="band" id="work">
+    <div class="band-h"><div class="caps eb rise" data-i18n="workK">Selected work</div></div>
+    <div class="wk-grid" id="wkGrid"></div>
+  </section>
+
   <section class="sec steps" id="steps">
     <div class="caps eb rise" data-i18n="stepsK">How booking works</div>
     <h2 class="sh rise" style="margin-top:18px" data-i18n-html="stepsH">Three simple <em>steps.</em></h2>
@@ -287,8 +317,8 @@ html[lang="ar"] .logo span{font-style:normal}
       <h2 class="rise" data-i18n-html="footH">Let's book<br><em>your session.</em></h2>
       <div class="f-row rise">
         <div class="cta">
-          <button class="cta-txt" id="openTxt2"><b><span data-i18n="seeP">See prices</span><i></i></b><span data-i18n="clickSub">All sessions &amp; packages</span></button>
-          <button class="cta-btn" id="openBtn2" aria-label="Open prices"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
+          <div class="cta-txt"><a id="waTxt" target="_blank" rel="noopener"><b><span data-i18n="bookWa">Book on WhatsApp</span><i></i></b></a><button class="f-prices" id="openTxt2" data-i18n="orPrices">or see prices first</button></div>
+          <a class="cta-btn" id="waBtn" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.6-4.6A8.5 8.5 0 1 1 8 19.6L3 21z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1.2-1.2 1.8.9-.4 1.6c-3.6.3-7.7-3.8-7.4-7.4l1.6-.4.9 1.8L9 9.5z"/></svg></a>
         </div>
         <nav class="contacts" id="contacts3"></nav>
       </div>
@@ -357,9 +387,11 @@ const CONFIG = {
   steps_en:[["Choose a package","Browse the price list and pick what suits your moment."],
             ["Message on WhatsApp","Send the package and your date — I'll confirm availability."],
             ["Shoot & receive","We meet on the day, and your edited photos follow."]],
-  steps_ar:[["اختاري الباقة","تصفّحي قائمة الأسعار واختاري ما يناسب مناسبتك."],
-            ["راسليني على واتساب","أرسلي الباقة والتاريخ وسأؤكد لك توفر الموعد."],
-            ["التصوير والاستلام","نلتقي في الموعد، ثم تصلك صورك المعدّلة."]],
+  steps_ar:[["اختيار الباقة","من قائمة الأسعار، الباقة التي تناسب مناسبتك."],
+            ["التواصل عبر واتساب","إرسال الباقة والتاريخ، وتأكيد توفر الموعد."],
+            ["التصوير والاستلام","نلتقي في الموعد، ثم تصل الصور المعدّلة."]],
+  // "Selected work" band: photo numbers from the photos list below (1 = first photo)
+  featured:[2,5,8,11],
   contacts:{
     whatsapp:"https://wa.me/966559676967",
     instagram:"https://www.instagram.com/lojainalmowald/",
@@ -392,12 +424,12 @@ const T={
      pk:"Prices & packages",ph:"Clear prices,<br><em>made for your moment.</em>",
      nk:"Good to know",
      plan:"No.",book:"Book",fig:"Fig.",btn:"العربية",msg:"Hi! I'd like to book: ",sub1:"Photography",
-     scroll:"Scroll",aboutK:"About",stepsK:"How booking works",stepsH:"Three simple <em>steps.</em>",footK:"Get in touch",footH:"Let's book<br><em>your session.</em>",seeP:"See prices",top:"Back to top ↑",pill:"Prices",sample:"Sample text — replace with her own words",city:"Yanbu"},
+     scroll:"Scroll",aboutK:"About",stepsK:"How booking works",stepsH:"Three simple <em>steps.</em>",footK:"Get in touch",workK:"Selected work",bookWa:"Book on WhatsApp",orPrices:"or see prices first",waMsg:"Hi! I'd like to book a session.",footH:"Let's book<br><em>your session.</em>",seeP:"See prices",top:"Back to top ↑",pill:"Prices",sample:"Sample text — replace with her own words",city:"Yanbu"},
  ar:{logoSub:"للتصوير",eyebrow:"مصوّرة · ينبع",sub:"بورتريه، عائلات ومناسبات، بعناية في كل لقطة.",click:"الأسعار",clickSub:"جميع الجلسات والباقات",close:"إغلاق",
      pk:"الأسعار والباقات",ph:"أسعار واضحة،<br><em>تناسب لحظتك.</em>",
      nk:"معلومات مهمة",
      plan:"رقم",book:"احجز",fig:"صورة",btn:"English",msg:"مرحباً! أرغب في حجز: ",sub1:"للتصوير",
-     scroll:"للأسفل",aboutK:"نبذة عني",stepsK:"طريقة الحجز",stepsH:"ثلاث خطوات <em>بسيطة.</em>",footK:"تواصلي معي",footH:"لنحجز<br><em>جلستك.</em>",seeP:"الأسعار",top:"↑ للأعلى",pill:"الأسعار",sample:"نص تجريبي — استبدليه بكلماتك",city:"ينبع"}
+     scroll:"للأسفل",aboutK:"نبذة عني",stepsK:"طريقة الحجز",stepsH:"ثلاث خطوات <em>بسيطة.</em>",footK:"للتواصل",workK:"من أعمالي",bookWa:"الحجز عبر واتساب",orPrices:"أو عرض الأسعار أولاً",waMsg:"مرحباً! أرغب في حجز جلسة تصوير.",footH:"لنحجز<br><em>جلستك.</em>",seeP:"الأسعار",top:"↑ للأعلى",pill:"الأسعار",sample:"نص تجريبي — استبدليه بكلماتك",city:"ينبع"}
 };
 const ICONS={
  whatsapp:'<path d="M3 21l1.6-4.6A8.5 8.5 0 1 1 8 19.6L3 21z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1.2-1.2 1.8.9-.4 1.6c-3.6.3-7.7-3.8-7.4-7.4l1.6-.4.9 1.8L9 9.5z"/>',
@@ -462,6 +494,10 @@ function buildAbout(){
   $('aFacts').innerHTML=(c['facts_'+l]||[]).map(([k,v])=>`<div><dt class="caps">${k}</dt><dd>${v}</dd></div>`).join('');
   $('aSample').textContent=c.about_is_sample?T[l].sample:'';
   $('stepList').innerHTML=(c['steps_'+l]||[]).map(([h,p],i)=>`<li class="rise" style="transition-delay:${i*.12}s"><span class="n">${pad(i+1)}</span><h3>${h}</h3><p>${p}</p></li>`).join('');
+  const P=c.photos;$('wkGrid').innerHTML=(c.featured||[]).map((n,i)=>{const p=P[(n-1+P.length)%P.length];return `<figure class="wk" style="transition-delay:${i*.1}s"><div class="ph" style="transition-delay:${i*.1}s"><img src="${p.src}" alt="${p[l]}" loading="lazy" style="transition-delay:${i*.1}s"></div><figcaption><b>${T[l].fig} ${pad(n)}</b>${p[l]}</figcaption></figure>`}).join('');
+  document.querySelectorAll('.more h2').forEach(h=>{h.classList.remove('rise');h.classList.add('mask');if(h.querySelector('.mw'))return;
+    h.innerHTML=h.innerHTML.split(/<br\s*\/?>/i).map((x,i)=>`<span class="mw"><span style="transition-delay:${i*.12}s">${x}</span></span>`).join('')});
+  const num=(c.contacts.whatsapp.match(/\d+/)||[''])[0],wa=`https://wa.me/${num}?text=${encodeURIComponent(T[l].waMsg)}`;$('waBtn').href=wa;$('waTxt').href=wa;
   $('fCopy').textContent=`© ${dig(new Date().getFullYear())} ${l==='ar'?c.name_ar:c.name_en} · ${T[l].city}`;
   watchRise();
 }
@@ -474,7 +510,7 @@ function setLang(l){
   $('langBtn').textContent=t.btn;$('langBtn2').textContent=t.btn;
   $('introTxt').textContent=CONFIG['intro_'+l];$('noteTxt').textContent=CONFIG['goodToKnow_'+l];
   const nm=l==='ar'?CONFIG.name_ar:CONFIG.name_en;
-  $('logoName').textContent=nm;$('logoName2').textContent=nm;
+  $('logoName2').textContent=nm;
   const [first,...rest]=nm.split(' ');$('name').innerHTML=`<span class="w"><span>${first}</span></span> <span class="w"><span style="transition-delay:.12s"><em>${rest.join(' ')}</em></span></span>`;
   buildAbout();buildReel();if(typeof initTracks==='function'&&tracks.length)initTracks();buildPrices();if(pr.classList.contains('on'))setTimeout(watchPlans,60);$('lskip').textContent=l==='ar'?'تخطي':'Skip';
 }
@@ -487,7 +523,7 @@ let pushed=false;
 const openPrices=()=>{showPrices(true);try{if(location.hash!=='#prices'){history.pushState(null,'','#prices');pushed=true}}catch(e){}};
 const closePrices=()=>{showPrices(false);if(pushed){pushed=false;try{history.back()}catch(e){}}else{try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}};
 addEventListener('hashchange',syncHash);addEventListener('popstate',()=>{pushed=false;syncHash()});
-$('openBtn2').onclick=openPrices;$('openTxt2').onclick=openPrices;$('pill').onclick=openPrices;$('closeBtn').onclick=closePrices;
+$('openTxt2').onclick=openPrices;$('pill').onclick=openPrices;$('closeBtn').onclick=closePrices;
 addEventListener('keydown',e=>{if(e.key==='Escape'&&pr.classList.contains('on'))closePrices()});
 const flip=()=>setLang(lang==='en'?'ar':'en');$('langBtn').onclick=flip;$('langBtn2').onclick=flip;
 
@@ -553,11 +589,15 @@ if('IntersectionObserver' in window){
   new IntersectionObserver(es=>{footVis=es[0].isIntersecting;pillSync()}).observe(document.querySelector('.f-row'));
 }
 let rio;
-function watchRise(){const els=document.querySelectorAll('.more .rise:not(.in),.a-ph:not(.in)');
+function watchRise(){const els=document.querySelectorAll('.more .rise:not(.in),.more .mask:not(.in),.a-ph:not(.in),.wk:not(.in)');
   if(RM||!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('in'));return}
   if(!rio)rio=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');rio.unobserve(en.target)}}),{threshold:.15,rootMargin:'0px 0px -6% 0px'});
   els.forEach(e=>rio.observe(e))}
 const sm=RM?'auto':'smooth';
+$('wkGrid').addEventListener('click',e=>{const f=e.target.closest('.wk');if(f)openLB(f)});
+/* page scroll pushes the photo strips: they speed up and lean as you leave the hero */
+let lastY=scrollY;addEventListener('scroll',()=>{const dy=scrollY-lastY;lastY=scrollY;if(RM||!heroVis||dragging)return;
+  tracks.forEach(t=>{t.v=Math.max(-28,Math.min(28,t.v+Math.sign(t.base)*Math.abs(dy)*.06))})},{passive:true});
 $('cue').onclick=()=>$('about').scrollIntoView({behavior:sm});
 $('toTop').onclick=()=>scrollTo({top:0,behavior:sm});
 
