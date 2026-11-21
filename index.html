@@ -328,6 +328,9 @@ html[lang="ar"] .logo span{font-style:normal}
 </section>
 
 <script>
+/* Always start at the top on refresh */
+try{history.scrollRestoration='manual'}catch(e){}scrollTo(0,0);addEventListener('pageshow',()=>{if(!location.hash)scrollTo(0,0)});
+
 /* ======================= CONFIG — edit these ======================= */
 const CONFIG = {
   name_en:"Lojain Al Mowald", name_ar:"لُجين المولد",
