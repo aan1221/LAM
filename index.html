@@ -16,8 +16,9 @@ html[lang="ar"] .caps,html[lang="ar"] .fig figcaption,html[lang="ar"] .intro p,h
 html[lang="ar"] .intro h1{line-height:1.25;font-size:clamp(3rem,8vw,7rem)}
 html[lang="ar"] .p-head h2{line-height:1.4}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300;overflow:hidden}
+html{scrollbar-gutter:stable}
+html.lock{overflow:hidden}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .caps{font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;font-style:italic;font-family:var(--serif)}
@@ -59,7 +60,7 @@ html[lang="ar"] .logo span{letter-spacing:0}
 
 /* ---------- Running photo banners ---------- */
 .reel{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:14px;direction:ltr;padding-bottom:4px}
-.reel{touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+.reel{touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
 .reel.drag{cursor:grabbing}
 .track{flex:1;min-height:0;display:flex;gap:14px;width:max-content;will-change:transform}
 .fig img{pointer-events:none;-webkit-user-drag:none}
@@ -70,7 +71,7 @@ html[lang="ar"] .logo span{letter-spacing:0}
 .fig figcaption b{font-weight:400;letter-spacing:.12em;text-transform:uppercase;font-size:.66rem;color:var(--ink)}
 
 /* ---------- Bottom bar: CTA + contacts ---------- */
-.bar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 4vw 20px;border-top:1px solid var(--line)}
+.bar{position:relative;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 4vw 20px;border-top:1px solid var(--line)}
 .cta{display:flex;align-items:center;gap:18px}
 .cta-btn{width:64px;height:64px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;position:relative;transition:transform .5s var(--e)}
 .cta-btn:hover{transform:scale(1.07)}
@@ -94,7 +95,7 @@ html[dir="rtl"] .cta-txt b i{transform:scaleX(-1);animation-name:nudgeR}
 @keyframes pop{0%{transform:scale(0) translateY(20px)}100%{transform:scale(1)}}
 
 /* ---------- Prices panel ---------- */
-.prices{position:fixed;inset:0;z-index:50;background:var(--paper);overflow:auto;clip-path:inset(100% 0 0 0);transition:clip-path 1s var(--e),visibility 0s 1s;visibility:hidden}
+.prices{position:fixed;inset:0;z-index:50;background:var(--paper);overflow:auto;overscroll-behavior:contain;clip-path:inset(100% 0 0 0);transition:clip-path 1s var(--e),visibility 0s 1s;visibility:hidden}
 .prices.on{clip-path:inset(0 0 0 0);visibility:visible;transition:clip-path 1s var(--e),visibility 0s}
 .p-top{position:sticky;top:0;z-index:3;display:flex;justify-content:space-between;align-items:center;padding:22px 4vw;background:rgba(248,246,241,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .close{display:flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
@@ -161,7 +162,53 @@ html[lang="ar"] .lb-close{letter-spacing:0}
 .plan.in .plan-ph{clip-path:inset(0 0 0 0)}
 .plan.in .plan-ph img{transform:none}
 
+/* ---------- Scroll cue ---------- */
+.cue{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--soft)}
+.cue i{display:block;width:1px;height:30px;background:var(--line);position:relative;overflow:hidden}
+.cue i::after{content:"";position:absolute;left:0;top:-100%;width:1px;height:100%;background:var(--olive);animation:drip 2.2s var(--e) infinite}
+@keyframes drip{60%,100%{top:100%}}
+
+/* ---------- About / booking / footer ---------- */
+.sec{max-width:1180px;margin:0 auto;padding:16vh 4vw 0}
+.eb{color:var(--olive);display:flex;align-items:center;gap:14px}
+.eb::before{content:"";width:34px;height:1px;background:var(--olive)}
+.rise{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform 1.1s var(--e)}
+.rise.in{opacity:1;transform:none}
+.a-grid{display:grid;grid-template-columns:5fr 7fr;gap:6vw;align-items:start;margin-top:34px}
+.a-grid.nophoto{grid-template-columns:1fr}.a-grid.nophoto .a-ph{display:none}.a-grid.nophoto .a-txt{max-width:820px}
+.a-ph{aspect-ratio:4/5;overflow:hidden;clip-path:inset(0 0 100% 0);transition:clip-path 1.3s var(--e)}
+.a-ph img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.18);transition:transform 1.9s var(--e)}
+.a-ph.in{clip-path:inset(0 0 0 0)}.a-ph.in img{transform:none}
+.a-txt h2,.sh,.foot h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.4rem,5.5vw,4.4rem);line-height:1.04}
+.a-txt h2 em,.sh em,.foot h2 em{color:var(--olive)}
+.a-txt p{font-family:var(--serif);font-size:1.2rem;line-height:1.65;color:#4b4740;max-width:580px;margin-top:22px}
+.a-txt blockquote{margin-top:42px;padding:28px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-family:var(--serif);font-style:italic;font-size:clamp(1.45rem,2.8vw,2.1rem);line-height:1.32;color:var(--olive)}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:30px}
+.facts div{border-top:1px solid var(--line);padding-top:14px}
+.facts dt{color:var(--soft)}
+.facts dd{font-family:var(--serif);font-size:1.12rem;margin-top:6px}
+.sample{display:inline-block;margin-top:26px;border:1px dashed var(--olive);color:var(--olive);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:6px 10px}
+.sample:empty,.sample.off{display:none}
+.steps ol{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);margin-top:44px;border-top:1px solid var(--line)}
+.steps li{padding:32px 32px 10px;border-inline-start:1px solid var(--line)}
+.steps li:first-child{border-inline-start:0;padding-inline-start:0}
+.steps .n{font-family:var(--serif);font-size:3.2rem;line-height:1;color:var(--olive)}
+.steps h3{font-family:var(--serif);font-weight:400;font-size:1.6rem;margin:20px 0 10px}
+.steps p{color:var(--soft);font-size:.95rem;line-height:1.65;max-width:300px}
+.foot{margin-top:18vh;border-top:1px solid var(--line)}
+.f-wrap{max-width:1180px;margin:0 auto;padding:13vh 4vw 0}
+.foot h2{font-size:clamp(3rem,8vw,6.8rem);line-height:.98;margin-top:22px}
+.f-row{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:48px;padding-bottom:12vh}
+.f-row .cta{flex-direction:row-reverse}.f-row .cta-txt{text-align:start}.f-row .cta-txt b{justify-content:flex-start}
+.f-base{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding:22px 0 calc(26px + env(safe-area-inset-bottom));font-family:var(--serif);font-size:.9rem;color:var(--soft)}
+.f-base button{font-family:var(--serif);color:var(--soft);transition:color .3s}.f-base button:hover{color:var(--ink)}
+.pill{position:fixed;z-index:40;bottom:calc(18px + env(safe-area-inset-bottom));inset-inline-end:4vw;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);padding:13px 22px 13px 18px;border-radius:999px;font-family:var(--serif);font-size:1.05rem;box-shadow:0 10px 30px -12px rgba(31,29,26,.5);transform:translateY(160%);opacity:0;pointer-events:none;transition:transform .7s var(--e),opacity .4s}
+.pill.on{transform:none;opacity:1;pointer-events:auto}
+.pill svg{width:18px;height:18px}
+
 @media (prefers-reduced-motion:reduce){
+  .rise,.a-ph,.a-ph img{transition:none!important;opacity:1;transform:none;clip-path:none}
+  .cue i::after{animation:none;top:0}
   .plan,.plan-ph,.plan-ph img{transition:none!important;opacity:1;transform:none;clip-path:none}
 }
 @media (max-width:760px){
@@ -172,9 +219,19 @@ html[lang="ar"] .lb-close{letter-spacing:0}
   .cta-btn{width:56px;height:56px}
   .contacts{gap:8px}.contacts a{width:40px;height:40px}
   .plan{padding:26px 22px}.plan-ph{margin:-26px -22px 20px;height:170px}
+  .cue{position:absolute;top:16px;inset-inline-end:5vw}
+  .sec{padding:12vh 5vw 0}.f-wrap{padding:11vh 5vw 0}
+  .a-grid{grid-template-columns:1fr;gap:34px}.a-ph{max-height:72vh}
+  .facts{grid-template-columns:1fr;gap:0}.facts div{display:flex;justify-content:space-between;gap:16px;padding:12px 0}.facts dd{margin:0;text-align:end}
+  .steps ol{grid-template-columns:1fr}.steps li,.steps li:first-child{border-inline-start:0;border-bottom:1px solid var(--line);padding:26px 0;display:grid;grid-template-columns:64px 1fr;column-gap:10px}
+  .steps .n{font-size:2.4rem;grid-row:span 2}.steps h3{margin:2px 0 6px;font-size:1.4rem}
+  .f-row{flex-direction:column;align-items:flex-start}
 }
 html[lang="ar"]{--serif:'Noto Naskh Arabic',serif;--sans:'IBM Plex Sans Arabic',sans-serif}
-html[lang="ar"] .intro h1,html[lang="ar"] .p-head h2,html[lang="ar"] .g-title h3,html[lang="ar"] .plan h4,html[lang="ar"] .price,html[lang="ar"] .logo b,html[lang="ar"] .loader b,html[lang="ar"] .cta-txt b{font-family:'El Messiri',serif;font-weight:500}
+html[lang="ar"] .intro h1,html[lang="ar"] .p-head h2,html[lang="ar"] .g-title h3,html[lang="ar"] .plan h4,html[lang="ar"] .price,html[lang="ar"] .logo b,html[lang="ar"] .loader b,html[lang="ar"] .cta-txt b,html[lang="ar"] .a-txt h2,html[lang="ar"] .sh,html[lang="ar"] .foot h2,html[lang="ar"] .steps .n,html[lang="ar"] .steps h3,html[lang="ar"] .pill,html[lang="ar"] .facts dd{font-family:'El Messiri',serif;font-weight:500}
+html[lang="ar"] .a-txt h2,html[lang="ar"] .sh,html[lang="ar"] .foot h2{line-height:1.35}
+html[lang="ar"] .a-txt blockquote{font-style:normal}
+html[lang="ar"] .sample{letter-spacing:0;font-size:.85rem}
 html[lang="ar"] em{font-style:normal}
 html[lang="ar"] .intro h1{line-height:1.3;font-size:clamp(3rem,8vw,7rem)}
 html[lang="ar"] .p-head h2{line-height:1.35}
@@ -208,9 +265,49 @@ html[lang="ar"] .logo span{font-style:normal}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
       </button>
     </div>
+    <button class="cue" id="cue" aria-label="Scroll down"><span class="caps" data-i18n="scroll">Scroll</span><i></i></button>
     <nav class="contacts" id="contacts"></nav>
   </footer>
 </div>
+
+<main class="more">
+  <section class="sec about" id="about">
+    <div class="caps eb rise" data-i18n="aboutK">About</div>
+    <div class="a-grid" id="aGrid">
+      <figure class="a-ph" id="aPh"><img id="aImg" alt="" loading="lazy"></figure>
+      <div class="a-txt">
+        <h2 class="rise" id="aTitle"></h2>
+        <div id="aBody"></div>
+        <blockquote class="rise" id="aQuote"></blockquote>
+        <dl class="facts rise" id="aFacts"></dl>
+        <span class="sample" id="aSample"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec steps" id="steps">
+    <div class="caps eb rise" data-i18n="stepsK">How booking works</div>
+    <h2 class="sh rise" style="margin-top:18px" data-i18n-html="stepsH">Three simple <em>steps.</em></h2>
+    <ol id="stepList"></ol>
+  </section>
+
+  <footer class="foot" id="foot">
+    <div class="f-wrap">
+      <div class="caps eb rise" data-i18n="footK">Get in touch</div>
+      <h2 class="rise" data-i18n-html="footH">Let's book<br><em>your session.</em></h2>
+      <div class="f-row rise">
+        <div class="cta">
+          <button class="cta-txt" id="openTxt2"><b><span data-i18n="seeP">See prices</span><i></i></b><span data-i18n="clickSub">to see prices and packages</span></button>
+          <button class="cta-btn" id="openBtn2" aria-label="Open prices"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
+        </div>
+        <nav class="contacts" id="contacts3"></nav>
+      </div>
+      <div class="f-base"><span id="fCopy"></span><button id="toTop" data-i18n="top">Back to top ↑</button></div>
+    </div>
+  </footer>
+</main>
+
+<button class="pill" id="pill" aria-label="Open prices"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h16M4 12h16M4 17h10"/></svg><span data-i18n="pill">Prices</span></button>
 
 <div class="lb" id="lb" aria-hidden="true">
   <div class="lb-box" id="lbBox"><img id="lbImg" alt=""></div>
@@ -252,6 +349,24 @@ const CONFIG = {
   intro_ar:"كل جلسة تشمل تعديلاً احترافياً للصور. راسلني عبر واتساب لحجز موعدك.",
   goodToKnow_en:"Prices may change during the year. Message me on WhatsApp to confirm availability.",
   goodToKnow_ar:"الأسعار قابلة للتغيير خلال السنة. راسلني عبر واتساب للتأكد من توفر الموعد.",
+  // ABOUT section — SAMPLE TEXT, replace with her own words (keep it to 3–4 short lines)
+  portrait:"",                 // e.g. "photos/me.jpg" — leave "" for no portrait (text-only layout)
+  about_is_sample:true,        // set to false once the text below is hers (hides the "sample" tag)
+  about_title_en:"Hello, I'm <em>Lojain.</em>", about_title_ar:"أهلاً، أنا <em>لُجين.</em>",
+  about_en:["I photograph people in Yanbu — portraits, families and the occasions you'll want to keep.",
+            "Write two or three more lines here, in her own words: how she works and what she loves to shoot."],
+  about_ar:["أصوّر الناس في ينبع — بورتريه، عائلات، ومناسبات تستحق أن تبقى.",
+            "اكتبي هنا سطرين أو ثلاثة بأسلوبك: طريقتك في العمل وما تحبين تصويره."],
+  quote_en:"The best photos are the ones that still feel like you years later.",
+  quote_ar:"أجمل الصور هي التي تشبهك حتى بعد سنوات.",
+  facts_en:[["Based in","Yanbu"],["Sessions","Portraits · Families · Occasions"],["Booking","WhatsApp"]],
+  facts_ar:[["المدينة","ينبع"],["الجلسات","بورتريه · عائلات · مناسبات"],["الحجز","واتساب"]],
+  steps_en:[["Choose a package","Browse the price list and pick what suits your moment."],
+            ["Message on WhatsApp","Send the package and your date — I'll confirm availability."],
+            ["Shoot & receive","We meet on the day, and your edited photos follow."]],
+  steps_ar:[["اختاري الباقة","تصفّحي قائمة الأسعار واختاري ما يناسب مناسبتك."],
+            ["راسليني على واتساب","أرسلي الباقة والتاريخ وسأؤكد لك توفر الموعد."],
+            ["التصوير والاستلام","نلتقي في الموعد، ثم تصلك صورك المعدّلة."]],
   contacts:{
     whatsapp:"https://wa.me/966559676967",
     instagram:"https://www.instagram.com/lojainalmowald/",
@@ -283,11 +398,13 @@ const T={
  en:{logoSub:"Photography",eyebrow:"Photographer · Yanbu",sub:"Portraits, families and occasions, photographed with care.",click:"Click here",clickSub:"to see prices and packages",close:"Close",
      pk:"Prices & packages",ph:"Clear prices,<br><em>made for your moment.</em>",
      nk:"Good to know",
-     plan:"No.",book:"Book",fig:"Fig.",btn:"العربية",msg:"Hi! I'd like to book: ",sub1:"Photography"},
+     plan:"No.",book:"Book",fig:"Fig.",btn:"العربية",msg:"Hi! I'd like to book: ",sub1:"Photography",
+     scroll:"Scroll",aboutK:"About",stepsK:"How booking works",stepsH:"Three simple <em>steps.</em>",footK:"Get in touch",footH:"Let's book<br><em>your session.</em>",seeP:"See prices",top:"Back to top ↑",pill:"Prices",sample:"Sample text — replace with her own words",city:"Yanbu"},
  ar:{logoSub:"للتصوير",eyebrow:"مصوّرة · ينبع",sub:"بورتريه، عائلات ومناسبات، بعناية في كل لقطة.",click:"اضغط هنا",clickSub:"لعرض الأسعار والباقات",close:"إغلاق",
      pk:"الأسعار والباقات",ph:"أسعار واضحة،<br><em>تناسب لحظتك.</em>",
      nk:"معلومات مهمة",
-     plan:"رقم",book:"احجز",fig:"صورة",btn:"English",msg:"مرحباً! أرغب في حجز: ",sub1:"للتصوير"}
+     plan:"رقم",book:"احجز",fig:"صورة",btn:"English",msg:"مرحباً! أرغب في حجز: ",sub1:"للتصوير",
+     scroll:"للأسفل",aboutK:"نبذة عني",stepsK:"طريقة الحجز",stepsH:"ثلاث خطوات <em>بسيطة.</em>",footK:"تواصلي معي",footH:"لنحجز<br><em>جلستك.</em>",seeP:"الأسعار",top:"↑ للأعلى",pill:"الأسعار",sample:"نص تجريبي — استبدليه بكلماتك",city:"ينبع"}
 };
 const ICONS={
  whatsapp:'<path d="M3 21l1.6-4.6A8.5 8.5 0 1 1 8 19.6L3 21z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1.2-1.2 1.8.9-.4 1.6c-3.6.3-7.7-3.8-7.4-7.4l1.6-.4.9 1.8L9 9.5z"/>',
@@ -319,7 +436,7 @@ function buildReel(){
 /* Contacts */
 function buildContacts(){
   const h=Object.entries(CONFIG.contacts).map(([k,v],i)=>`<a href="${v}" target="_blank" rel="noopener" aria-label="${k}" style="animation-delay:${.5+i*.08}s"><svg viewBox="0 0 24 24">${ICONS[k]||''}</svg></a>`).join('');
-  $('contacts').innerHTML=h;$('contacts2').innerHTML=h;
+  $('contacts').innerHTML=h;$('contacts2').innerHTML=h;$('contacts3').innerHTML=h;
 }
 
 /* Prices */
@@ -342,6 +459,20 @@ function buildPrices(){
       </article>`}).join('')}</div></div>`).join('');
 }
 
+/* About, booking steps, footer */
+function buildAbout(){
+  const l=lang,c=CONFIG,dig=s=>l==='ar'?String(s).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]):String(s);
+  $('aGrid').classList.toggle('nophoto',!c.portrait);if(c.portrait&&$('aImg').getAttribute('src')!==c.portrait)$('aImg').src=c.portrait;
+  $('aTitle').innerHTML=c['about_title_'+l]||'';
+  $('aBody').innerHTML=(c['about_'+l]||[]).map((x,i)=>`<p class="rise" style="transition-delay:${.08*(i+1)}s">${x}</p>`).join('');
+  $('aQuote').textContent=c['quote_'+l]||'';$('aQuote').style.display=c['quote_'+l]?'':'none';
+  $('aFacts').innerHTML=(c['facts_'+l]||[]).map(([k,v])=>`<div><dt class="caps">${k}</dt><dd>${v}</dd></div>`).join('');
+  $('aSample').textContent=c.about_is_sample?T[l].sample:'';
+  $('stepList').innerHTML=(c['steps_'+l]||[]).map(([h,p],i)=>`<li class="rise" style="transition-delay:${i*.12}s"><span class="n">${pad(i+1)}</span><h3>${h}</h3><p>${p}</p></li>`).join('');
+  $('fCopy').textContent=`© ${dig(new Date().getFullYear())} ${l==='ar'?c.name_ar:c.name_en} · ${T[l].city}`;
+  watchRise();
+}
+
 /* Language */
 function setLang(l){
   lang=l;const h=document.documentElement;h.lang=l;h.dir=l==='ar'?'rtl':'ltr';const t=T[l];
@@ -352,18 +483,18 @@ function setLang(l){
   const nm=l==='ar'?CONFIG.name_ar:CONFIG.name_en;
   $('logoName').textContent=nm;$('logoName2').textContent=nm;
   const [first,...rest]=nm.split(' ');$('name').innerHTML=`<span class="w"><span>${first}</span></span> <span class="w"><span style="transition-delay:.12s"><em>${rest.join(' ')}</em></span></span>`;
-  buildReel();if(typeof initTracks==='function'&&tracks.length)initTracks();buildPrices();if(pr.classList.contains('on'))setTimeout(watchPlans,60);$('lskip').textContent=l==='ar'?'تخطي':'Skip';
+  buildAbout();buildReel();if(typeof initTracks==='function'&&tracks.length)initTracks();buildPrices();if(pr.classList.contains('on'))setTimeout(watchPlans,60);$('lskip').textContent=l==='ar'?'تخطي':'Skip';
 }
 
 /* Open / close prices */
 const pr=$('prices');
-function showPrices(on){if(on){buildPrices();pr.scrollTop=0;setTimeout(watchPlans,60)}pr.classList.toggle('on',on);pr.setAttribute('aria-hidden',on?'false':'true')}
+function showPrices(on){if(on){buildPrices();pr.scrollTop=0;setTimeout(watchPlans,60)}pr.classList.toggle('on',on);pr.setAttribute('aria-hidden',on?'false':'true');lockSync()}
 function syncHash(){showPrices(location.hash==='#prices')}
 let pushed=false;
 const openPrices=()=>{showPrices(true);try{if(location.hash!=='#prices'){history.pushState(null,'','#prices');pushed=true}}catch(e){}};
 const closePrices=()=>{showPrices(false);if(pushed){pushed=false;try{history.back()}catch(e){}}else{try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}};
 addEventListener('hashchange',syncHash);addEventListener('popstate',()=>{pushed=false;syncHash()});
-$('openBtn').onclick=openPrices;$('openTxt').onclick=openPrices;$('closeBtn').onclick=closePrices;
+$('openBtn').onclick=openPrices;$('openTxt').onclick=openPrices;$('openBtn2').onclick=openPrices;$('openTxt2').onclick=openPrices;$('pill').onclick=openPrices;$('closeBtn').onclick=closePrices;
 addEventListener('keydown',e=>{if(e.key==='Escape'&&pr.classList.contains('on'))closePrices()});
 const flip=()=>setLang(lang==='en'?'ar':'en');$('langBtn').onclick=flip;$('langBtn2').onclick=flip;
 
@@ -373,15 +504,16 @@ const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const reel=$('reel');let tracks=[],dragging=false,moved=0,lastX=0,lastT=0,fling=0;
 function initTracks(){tracks=[...reel.querySelectorAll('.track')].map((el,i)=>({el,x:i?-el.scrollWidth/4:0,base:RM?0:(i?.42:-.36),v:RM?0:(i?.42:-.36)}))}
 function wrap(t){const h=t.el.scrollWidth/2;if(!h)return;if(t.x<=-h)t.x+=h;if(t.x>0)t.x-=h}
-(function loop(){tracks.forEach(t=>{if(!dragging){t.v+=(t.base-t.v)*.035;t.x+=t.v}wrap(t);
+let heroVis=true;
+(function loop(){if(heroVis&&!pr.classList.contains('on')&&!document.documentElement.classList.contains('lbon'))tracks.forEach(t=>{if(!dragging){t.v+=(t.base-t.v)*.035;t.x+=t.v}wrap(t);
   const sk=RM?0:Math.max(-7,Math.min(7,(t.v-t.base)*-.35));t.el.style.transform=`translate3d(${t.x}px,0,0) skewX(${sk}deg)`});requestAnimationFrame(loop)})();
-reel.addEventListener('pointerdown',e=>{dragging=true;moved=0;lastX=e.clientX;lastT=performance.now();reel.classList.add('drag');try{reel.setPointerCapture(e.pointerId)}catch(_){}});
+reel.addEventListener('pointerdown',e=>{if(e.button>0)return;dragging=true;moved=0;lastX=e.clientX;lastT=performance.now();reel.classList.add('drag');try{reel.setPointerCapture(e.pointerId)}catch(_){}});
 reel.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-lastX,now=performance.now(),dt=Math.max(1,now-lastT);moved+=Math.abs(dx);
   fling=dx/dt*16;tracks.forEach(t=>{t.x+=dx;t.v=fling});lastX=e.clientX;lastT=now});
 function endDrag(e){if(!dragging)return;dragging=false;reel.classList.remove('drag');tracks.forEach(t=>t.v=Math.max(-60,Math.min(60,fling)));
   if(moved<6&&e&&e.type==='pointerup'){const el=document.elementFromPoint(e.clientX,e.clientY),f=el&&el.closest('.fig');if(f)openLB(f)}}
 reel.addEventListener('pointerup',endDrag);reel.addEventListener('pointercancel',()=>endDrag());
-reel.addEventListener('wheel',e=>{const d=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;tracks.forEach(t=>t.v-=d*.06);e.preventDefault()},{passive:false});
+reel.addEventListener('wheel',e=>{if(Math.abs(e.deltaX)<=Math.abs(e.deltaY))return;tracks.forEach(t=>t.v-=e.deltaX*.06);e.preventDefault()},{passive:false});
 
 /* ---------- Full-screen viewer: grows out of the tapped photo ---------- */
 const lb=$('lb'),box=$('lbBox'),lbImg=$('lbImg');let lbI=0,lbFrom=null;
@@ -396,10 +528,10 @@ function openLB(fig){const img=fig.querySelector('img'),r=img.getBoundingClientR
   const idx=CONFIG.photos.findIndex(p=>p.src===img.getAttribute('src'));lbI=idx<0?0:idx;
   box.style.transition='none';place({left:r.left,top:r.top,width:r.width,height:r.height});box.style.opacity=1;lbImg.onload=null;lbImg.src=img.getAttribute('src');
   showLB(lbI,true);place({left:r.left,top:r.top,width:r.width,height:r.height});box.offsetWidth;box.style.transition='';
-  lb.classList.add('on');lb.setAttribute('aria-hidden','false');requestAnimationFrame(()=>showLB(lbI,true))}
+  lb.classList.add('on');lb.setAttribute('aria-hidden','false');lockSync();requestAnimationFrame(()=>showLB(lbI,true))}
 function closeLB(){if(!lb.classList.contains('on'))return;const r=lbFrom&&lbFrom.getBoundingClientRect();
   if(r&&r.width&&lbFrom.getAttribute('src')===CONFIG.photos[lbI].src)place({left:r.left,top:r.top,width:r.width,height:r.height});else box.style.opacity=0;
-  lb.classList.remove('on');lb.setAttribute('aria-hidden','true');setTimeout(()=>{if(!lb.classList.contains('on'))box.style.opacity=0},700)}
+  lb.classList.remove('on');lb.setAttribute('aria-hidden','true');lockSync();setTimeout(()=>{if(!lb.classList.contains('on'))box.style.opacity=0},700)}
 const step=d=>showLB(lbI+(lang==='ar'?-d:d));
 $('lbNext').onclick=e=>{e.stopPropagation();showLB(lbI+1)};$('lbPrev').onclick=e=>{e.stopPropagation();showLB(lbI-1)};
 $('lbClose').onclick=closeLB;
@@ -419,12 +551,30 @@ function watchPlans(){if(io)io.disconnect();
     el.style.transitionDelay=(sib%3)*.12+'s';el.classList.add('in');const n=el.querySelector('.num');setTimeout(()=>n&&countUp(n),250+(sib%3)*120);io.unobserve(el)}),{root:pr,threshold:.18});
   pr.querySelectorAll('.plan').forEach(p=>io.observe(p))}
 
+/* ---------- Scroll lock, prices pill, scroll reveals ---------- */
+let footVis=false,barVis=true;
+function lockSync(){const H=document.documentElement,lbOn=lb.classList.contains('on');H.classList.toggle('lock',!opened||pr.classList.contains('on')||lbOn);H.classList.toggle('lbon',lbOn);pillSync()}
+function pillSync(){$('pill').classList.toggle('on',opened&&!barVis&&!footVis&&!pr.classList.contains('on')&&!lb.classList.contains('on'))}
+if('IntersectionObserver' in window){
+  new IntersectionObserver(es=>{heroVis=es[0].isIntersecting},{rootMargin:'40px'}).observe(document.querySelector('.page'));
+  new IntersectionObserver(es=>{barVis=es[0].isIntersecting;pillSync()}).observe(document.querySelector('.bar'));
+  new IntersectionObserver(es=>{footVis=es[0].isIntersecting;pillSync()}).observe(document.querySelector('.f-row'));
+}
+let rio;
+function watchRise(){const els=document.querySelectorAll('.more .rise:not(.in),.a-ph:not(.in)');
+  if(RM||!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('in'));return}
+  if(!rio)rio=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');rio.unobserve(en.target)}}),{threshold:.15,rootMargin:'0px 0px -6% 0px'});
+  els.forEach(e=>rio.observe(e))}
+const sm=RM?'auto':'smooth';
+$('cue').onclick=()=>$('about').scrollIntoView({behavior:sm});
+$('toTop').onclick=()=>scrollTo({top:0,behavior:sm});
+
 /* ---------- Opening sequence ---------- */
 document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';
 $('lname').textContent=lang==='ar'?CONFIG.name_ar:CONFIG.name_en;$('lcap').textContent=T[lang].eyebrow;$('lskip').textContent=lang==='ar'?'تخطي':'Skip';
 buildContacts();
-let opened=false;
-function reveal(){if(opened)return;opened=true;$('loader').classList.add('out');document.body.classList.add('ready');setTimeout(()=>$('loader').remove(),800)}
+let opened=false;document.documentElement.classList.add('lock');
+function reveal(){if(opened)return;opened=true;$('loader').classList.add('out');document.body.classList.add('ready');lockSync();setTimeout(()=>$('loader').remove(),800)}
 (function intro(){const L=$('loader'),F=$('lframe'),seq=CONFIG.photos.slice(0,10);
   if(RM||location.hash==='#prices'){reveal();return}
   F.innerHTML=seq.map(p=>`<img src="${p.src}" alt="" decoding="async">`).join('');const ims=[...F.children];let i=0,done=false;
